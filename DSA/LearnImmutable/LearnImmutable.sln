@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnImmutable", "LearnImmu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnImmutableTest", "LearnImmutableTest\LearnImmutableTest.csproj", "{28026B41-C1B0-419F-9B07-7527279C6E25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecursionTesting", "RecursionTesting\RecursionTesting.csproj", "{9D201B54-5696-4C6F-BEE9-9927CB08529C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{28026B41-C1B0-419F-9B07-7527279C6E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28026B41-C1B0-419F-9B07-7527279C6E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28026B41-C1B0-419F-9B07-7527279C6E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D201B54-5696-4C6F-BEE9-9927CB08529C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D201B54-5696-4C6F-BEE9-9927CB08529C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D201B54-5696-4C6F-BEE9-9927CB08529C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D201B54-5696-4C6F-BEE9-9927CB08529C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

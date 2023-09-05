@@ -1,4 +1,5 @@
 namespace LearnImmutableTest {
+
     [TestClass]
     public class SampleRecordTest {
 
