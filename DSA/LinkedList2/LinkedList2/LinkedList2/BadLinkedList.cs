@@ -78,7 +78,14 @@ namespace LinkedList {
             return null;
         }
         public void InsertAfterNodeIndex(INode<T> value, int position) {
-            if (position > Count) { return; }
+            if (position < 0 || position > Count-1) {
+                throw new InvalidOperationException();
+            }
+
+            if (position == Count-1) {
+                AddLast(value);
+                return;
+            }
 
             INode<T>? currNode = Head;
 
@@ -86,13 +93,17 @@ namespace LinkedList {
                 currNode = currNode.Next;
             }
 
-            (currNode.Next, value.Next) = (value.Next, currNode.Next);
+            (currNode.Next, value.Next) = (value, currNode.Next);
 
             Count++;
 
             return;
         }
         public void RemoveAt(int IndexPosition) {
+            if (IndexPosition < 0 || IndexPosition > Count-1) {
+                throw new InvalidOperationException();
+            }
+
             if (IndexPosition == 0) {
                 RemoveFirst();
                 return;
@@ -114,7 +125,7 @@ namespace LinkedList {
 
             prevNode.Next = currNode.Next;
 
-            Count++;
+            Count--;
 
             return;
         }
@@ -134,6 +145,11 @@ namespace LinkedList {
         public void RemoveLast() {
             if (Tail == null) {
                 throw new InvalidOperationException();
+            }
+
+            if (Head == Tail) {
+                Clear();
+                return;
             }
 
             INode<T> currNode = Head;
