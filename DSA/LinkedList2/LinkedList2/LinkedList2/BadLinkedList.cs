@@ -1,8 +1,9 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LinkedList {
-    public class BadLinkedList<T> : ILinkedList<T> {
+    public class BadLinkedList<T> : ILinkedList<T>, IEnumerable<T> {
 
         // ========== ATTRIBUTES ==========
 
@@ -163,6 +164,16 @@ namespace LinkedList {
             Tail = prevNode;
 
             Count--;
+        }
+
+        public IEnumerator<T> GetEnumerator() {
+            return (IEnumerator<T>)Nodes.GetEnumerator();
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return Nodes.GetEnumerator();
+            //throw new NotImplementedException();
         }
     }
 

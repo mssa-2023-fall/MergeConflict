@@ -362,5 +362,22 @@ namespace LinkedListTest {
             Assert.AreEqual(9, testLL.Tail?.Content);
 
         }
+
+        [TestMethod]
+        public void ableToCreateForEachLoopUsingIEnumerator() {
+            var initialNode = new BadNode<int>(5);//index 0
+            var testLL = new BadLinkedList<int>(initialNode);
+            testLL.AddLast(new BadNode<int>(6));//index 1
+            testLL.AddLast(new BadNode<int>(7));//index 2
+            testLL.AddLast(new BadNode<int>(8));//index 3
+            testLL.AddLast(new BadNode<int>(9));//index 4
+
+            foreach (var item in testLL) {
+                Console.WriteLine(item);
+            }
+
+            
+
+        }
     }
 }
