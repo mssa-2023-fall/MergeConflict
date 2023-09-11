@@ -11,7 +11,7 @@ namespace BadStackTest {
             var ourStack = new BadStack<int>();
 
             // Assert
-            Assert.AreEqual(0, ourStack.theStack.Count);
+            Assert.AreEqual(0, ourStack.Count());
         }
 
         [TestMethod]

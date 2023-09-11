@@ -11,7 +11,7 @@ namespace XavierStackTest {
             var ourStack = new XavierStack<int>();
 
             // Assert
-            Assert.AreEqual(0, ourStack.theList.Count);
+            Assert.AreEqual(0, ourStack.Count());
         }
 
         [TestMethod]
