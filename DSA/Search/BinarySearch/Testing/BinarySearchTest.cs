@@ -62,7 +62,7 @@ namespace Testing {
         }
 
         [TestMethod]
-        [DynamicData(nameof(AllArrayData))]
+        [DynamicData(nameof(VariedSizeArrayData))]
         public void GivenArraysOfVariedSizes_WhenSearchMethodIsUsed_IndexOfTargetIsReturned(int target, int[] testAry) {
             // Arrange
             // Act
@@ -70,7 +70,7 @@ namespace Testing {
             Assert.AreEqual(target, BinarySearcher.Search(target, testAry));
         }
 
-        public static IEnumerable<object[]> AllArrayData {
+        public static IEnumerable<object[]> VariedSizeArrayData {
             get {
                 Random rnd = new Random();
                 for (int i = 1; i < 100; i++) {
