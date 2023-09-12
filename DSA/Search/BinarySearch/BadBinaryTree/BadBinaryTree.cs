@@ -1,53 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BadBinaryTree {
-    internal class BadTree<T> {
+    public class BadTree {
 
         // ========== ATTRIBUTES ==========
 
         // what the root is
-        public BadTreeNode? root { get; private set; } = null;
+        public BadTreeNode? Root { get; set; } = null;
 
         // ========== CONSTRUCTORS ==========
 
+        /*
         public BadTree() { }
         // guarantees sorted int array
         public BadTree(int[] nodes) {
             nodes.Order();
             
-            BuildTree(nodes);
+            BuildTree(nodes, 0, nodes.Length-1);
         }
+        */
 
-
-
-        private void BuildTree(int[] nodes) {
+        /*
+        public void BuildTree(int[] nodes) {
             int mid = (nodes.Length - 1) / 2;
             BadTreeNode newNode = new BadTreeNode(nodes[mid]);
-            root = newNode;
+            Root = newNode;
 
             RecursiveBuild(newNode, nodes);
         }
+        */
+        public void RecursiveBuild(BadTreeNode node, int[] nodes) {
 
-        private void RecursiveBuild(BadTreeNode node, int[] nodes) {
             // array of size 2
             if (nodes.Length == 2) {
                 // if list[0] != node
                 // node.left = list[0]
-                if (nodes[0] != node.Content) {
-                    BadTreeNode newNode = new BadTreeNode(nodes[0]);
+                if (nodes[0] != node.Content && nodes[0] != node.Parent.Content) {
+                    BadTreeNode newNode = new BadTreeNode(nodes[0], node);
                     node.Left = newNode;
                 }
                 // if list[1] != node
                 // node.right = list[1]
-                if (nodes[1] != node.Content) {
-                    BadTreeNode newNode = new BadTreeNode(nodes[1]);
+                if (nodes[1] != node.Content && nodes[1] != node.Parent.Content) {
+                    BadTreeNode newNode = new BadTreeNode(nodes[1], node);
                     node.Right = newNode;
                 }
+                return;
             }
 
             int l = 0;
@@ -56,18 +60,103 @@ namespace BadBinaryTree {
 
             // left side
             //      calculate the midpoint of left side
-            // [ 1, 2, 3, 4, 5]
+            // [ 1, 2, 3, 4, 5 ]
             // CHRIS IMPLEMENT HERE
-            int leftMidIndex = Math.Round(mid / 2);
-            int leftMidValue = nodes[leftMidIndex];
+
+            //      left side of the passed node has a child == that midpoint
+            if (nodes[mid / 2] != node.Content && nodes[mid / 2] != node.Parent.Content) {
+                node.Left = new BadTreeNode(nodes[mid / 2], node);
+                //      recursiveFunction(left node, array[0..midpoint])
+                RecursiveBuild(node.Left, nodes[0..(mid + 1)]); // + to make inclusive
+            }
+
+
+
+            if (nodes[mid + (mid / 2)] != node.Content && nodes[mid + (mid / 2)] != node.Parent.Content) {
+                node.Right = new BadTreeNode(nodes[mid + (mid / 2)], node);
+                RecursiveBuild(node.Right, nodes[mid..nodes.Length]); // + to make inclusive
+            }
+        }
             
 
-            int lMid = mid - ((r - l) / 2);
-            //      left side of the passed node has a child == that midpoint
-            node.Left = new BadTreeNode(nodes[lMid]);
-            //      recursiveFunction(left node, array[0..midpoint])
-            RecursiveBuild(node.Left, nodes[0..(mid+1)]); // + to make inclusive
+        public int[] ToArray() {
+            int[] newAry = new int[32];
+            Queue<BadTreeNode> queue = new Queue<BadTreeNode>();
+            int i = 0;
+
+            // BFS through tree
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0) {
+
+                // each element touched, place into array
+                var node = queue.Dequeue();
+
+                // add node to newAry
+                newAry[i] = node.Content;
+                i++;
+
+                // add left child and right child to queue
+                if (node.Left != null) { queue.Enqueue(node.Left); }
+                if (node.Right != null) { queue.Enqueue(node.Right); }
+
+            }
+
+            // return array
+            return newAry;
         }
+
+        /*
+        private void BuildTree(int[] nodes, int leftIndex, int rightIndex) {
+            if (leftIndex > rightIndex) {
+                return; // Base case: No elements left in the subtree
+            }
+
+            int midIndex = leftIndex + (rightIndex - leftIndex) / 2;
+
+            // Create a new node for the current midpoint element
+            BadTreeNode newNode = new BadTreeNode(nodes[midIndex]);
+
+            // Set the new node as the left or right child based on the comparison with the current node's content
+            if (nodes[midIndex].CompareTo(newNode.Content) < 0) {
+                newNode.Right = Root;
+                Root = newNode;
+            } else {
+                newNode.Left = Root;
+                Root = newNode;
+            }
+
+            // Recursively build the left and right subtrees
+            BuildTree(nodes, leftIndex, midIndex - 1); // Left subtree
+            BuildTree(nodes, midIndex + 1, rightIndex); // Right subtree
+        }
+        */
+
+        // Constructor that takes an IEnumerable to build the tree
+        public BadTree(int[] nodes) {
+            var sortedNodes = nodes.OrderBy(node => node).ToArray();
+            Root = BuildTree(sortedNodes, 0, sortedNodes.Length - 1);
+        }
+
+        // Recursive method to build the balanced BST
+        private BadTreeNode BuildTree(int[] nodes, int leftIndex, int rightIndex) {
+            if (leftIndex > rightIndex) {
+                return null; // Base case: No elements left in the subtree
+            }
+
+            int midIndex = leftIndex + (rightIndex - leftIndex) / 2;
+
+            // Create a new node for the current midpoint element
+            BadTreeNode newNode = new BadTreeNode(nodes[midIndex]);
+
+            // Recursively build the left and right subtrees
+            newNode.Left = BuildTree(nodes, leftIndex, midIndex - 1); // Left subtree
+            newNode.Right = BuildTree(nodes, midIndex + 1, rightIndex); // Right subtree
+
+            return newNode;
+        }
+
+
 
         // [ 1, 2, 3, 4, 5]
         // add(1)
@@ -121,12 +210,12 @@ namespace BadBinaryTree {
         }
 
         // min element in tree
-        public T Min() {
+        public int Min() {
             throw new NotImplementedException();
         }
 
         // max element in tree
-        public T Max() {
+        public int Max() {
             throw new NotImplementedException();
         }
 
@@ -136,13 +225,13 @@ namespace BadBinaryTree {
         }
 
         // fill tree
-        public void FillTree(IEnumerable<T> nodes) {
+        public void FillTree(int[] nodes) {
             throw new NotImplementedException();
 
         }
     }
 
-    internal class BadTreeNode {
+    public class BadTreeNode {
 
         // ========== ATTRIBUTES ==========
 
@@ -165,7 +254,10 @@ namespace BadBinaryTree {
         public BadTreeNode(int num) {
             Content = num;
         }
-
+        public BadTreeNode(int num, BadTreeNode theParent) {
+            Content = num;
+            Parent = theParent;
+        }
         // ========== METHODS ==========
 
     }
