@@ -13,24 +13,17 @@ namespace Testing {
         [TestMethod]
         public void GivenASortedArray_WhenConvertedToTree_TreeContentsAreCorrect() {
             // Arrange
-            var testAry = new int[] { 1, 2, 3, 4, 5 };
+            var testAry = new int[] { 0, 1, 2, 3, 4, 5, 5, 7, 8, 8, 9, 11, 12, 22, 33 };
             var ourTree = new BadTree(testAry);
-            var targetAry = new int[] { 3, 2, 4, 1, 5 };
-            Array.Reverse(targetAry);
+            var targetAry = new int[] { 7, 3, 11, 1, 5, 8, 22, 0, 2, 4, 5, 8, 9, 12, 33 };
 
             // Act
             var newAry = ourTree.ToArray();
 
             // Assert
-            Assert.AreEqual(targetAry[0], newAry[0]);
-            Assert.AreEqual(targetAry[1], newAry[1]);
-            Assert.AreEqual(targetAry[2], newAry[2]);
-            Assert.AreEqual(targetAry[3], newAry[3]);
-            Assert.AreEqual(targetAry[4], newAry[4]);
-
-            //for (int i = 0; i < targetAry.Length; i++) {
-            //    Assert.AreEqual(targetAry[i], newAry[i]);
-            //}
+            for (int i = 0; i < targetAry.Length; i++) {
+                Assert.AreEqual(targetAry[i], newAry[i]);
+            }
         }
     }
 }
