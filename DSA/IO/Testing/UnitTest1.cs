@@ -105,5 +105,63 @@ namespace Testing {
             s.Flush();
             s.Close();
         }
+
+        [TestMethod]
+        public void WritePrimitiveData() {
+            // Arrange
+            // create a file stream to store data at binary.bin
+            // construct a BinaryWriter with above stream
+            var fileStream = new FileStream("binary.bin", FileMode.OpenOrCreate);
+            var binaryWriter = new BinaryWriter(fileStream);
+
+            // Act
+            // write char, string, decimal, int64, int32 and write a double
+            // dont forget to flush and close the file
+            using (binaryWriter) { 
+                binaryWriter.Write((char)'A');
+                binaryWriter.Write((string)" sail boat costs: ");
+                binaryWriter.Write((decimal)decimal.MaxValue);
+                binaryWriter.Write((Int64)Int64.MaxValue);
+                binaryWriter.Write((Int32)Int32.MaxValue);
+                binaryWriter.Write((double)double.MaxValue);
+                binaryWriter.Flush();
+            }
+
+            // write to stream s using data in byte array
+            fileStream = new FileStream("binary.bin", FileMode.OpenOrCreate);
+            var binaryReader = new BinaryReader(fileStream);
+
+            using (binaryReader) {
+                Assert.AreEqual('A', binaryReader.ReadChar());
+                Assert.AreEqual(" sail boat costs: ", binaryReader.ReadString());
+            }
+
+        }
+
+        [TestMethod]
+        public void CopyFile() {
+            // Arrange
+            var file1 = new FileStream("binary.bin", FileMode.Open);
+            var binaryReader = new BinaryReader(file1);
+            var file2 = new FileStream("binary COPY.bin", FileMode.OpenOrCreate);
+            var binaryWriter = new BinaryWriter(file2);
+
+            // Act
+            using (binaryReader) { 
+            using (binaryWriter) {
+                binaryWriter.Write(binaryReader.ReadBytes((int)binaryReader.BaseStream.Length));
+                binaryWriter.Flush();
+            }}
+
+            var oldFile = new FileStream("binary.bin", FileMode.Open);
+            var newFile = new FileStream("binary COPY.bin", FileMode.Open);
+
+            while (oldFile.Position != oldFile.Length || newFile.Position != newFile.Length) {
+                Assert.AreEqual(oldFile.ReadByte(), newFile.ReadByte());
+            }
+
+            oldFile.Close();
+            newFile.Close();
+        }
     }
 }
