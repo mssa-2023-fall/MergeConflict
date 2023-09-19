@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using CsvHelper;
 
 namespace IO {
     public class Winner {
@@ -11,6 +12,8 @@ namespace IO {
         public int Age { get; set; }
         public string Name { get; set; }
         public string Movie { get; set; }
+
+        public Winner() { }
 
         public Winner(string input) {
             // parse the input string like
