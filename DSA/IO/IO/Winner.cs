@@ -22,7 +22,7 @@ namespace IO {
             var lastAddedIndex = 1;
             bool useComma = true;
             bool isString = false;
-
+            
             for (int i = 1; i < input.Length; i++) {
                 if (input[i] == ',' && useComma) {
                     if (isString) {

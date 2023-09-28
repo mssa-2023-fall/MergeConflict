@@ -36,6 +36,11 @@ namespace LearnEvents {
             list.Remove(item);
             if (OnItemRemoved != null) {
                 OnItemRemoved.Invoke(this, (list.Count-1, list.Count, item, DateTime.Now));
+                int a = 1;
+                int b = 2;
+
+                int c = swag1(a, b);
+                int d = swag2(a, b);
             }
         }
         
@@ -46,11 +51,18 @@ namespace LearnEvents {
             set => list[i] = value;
         }
 
+        test1del swag1 = (in1, in2) => in1 + in2;
+        test1del swag2 = (in1, in2) => in1 * in2;
+
+
         public event ItemAddedEventDelegate<T> OnItemAdded;
         public event Action<NoisyList<T>>OnListCleared;
         public event Action<NoisyList<T>,(int CBA,int CAA,T? ItemRemoved,DateTime RemoveTimeStamp)> OnItemRemoved;
                 
     }
+    public delegate int test1del(int a, int b);
+    public delegate int test2del(Func<int, int, int> ourFunc);
+
 
     public delegate void ItemAddedEventDelegate<T>(NoisyList<T> sender, OnItemAddedEventArgs<T> args);
 

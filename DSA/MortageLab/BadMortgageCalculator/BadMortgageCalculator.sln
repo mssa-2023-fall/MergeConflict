@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadMortgageCalculator", "BadMortgageCalculator\BadMortgageCalculator.csproj", "{E2B5424A-5118-4563-A4C8-C75F81007D90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{3B900089-4840-4471-A450-093B31EAC4F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2B5424A-5118-4563-A4C8-C75F81007D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B5424A-5118-4563-A4C8-C75F81007D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B5424A-5118-4563-A4C8-C75F81007D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B5424A-5118-4563-A4C8-C75F81007D90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B900089-4840-4471-A450-093B31EAC4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B900089-4840-4471-A450-093B31EAC4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B900089-4840-4471-A450-093B31EAC4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B900089-4840-4471-A450-093B31EAC4F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F28F991-A4C1-4E3E-A8CE-EA72FAD32098}
+	EndGlobalSection
+EndGlobal

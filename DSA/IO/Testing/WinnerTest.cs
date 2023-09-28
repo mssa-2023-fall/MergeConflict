@@ -1,4 +1,5 @@
 ﻿using IO;
+using CsvHelper;
 
 namespace Testing {
     [TestClass]
@@ -48,6 +49,17 @@ namespace Testing {
             }
 
             Assert.AreEqual(89, winners.Count);
+
+        }
+
+
+        [TestMethod]
+        public void CreateWinnersFromCsvFileUsingCsvReader() {
+            List<Winner> winners = new List<Winner>();
+
+            using (var treader = new StreamReader()) {
+            using (var csv = new CsvReader)
+            }
 
         }
     }
