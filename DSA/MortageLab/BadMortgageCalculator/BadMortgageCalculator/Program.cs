@@ -17,7 +17,7 @@ namespace MyApp {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             // dictionary of all menu options and their delegates when chosen
-            Dictionary<string, Delegate> allOptionsToFunctions = new() {
+            Dictionary<string, Action> allOptionsToFunctions = new() {
                 { "Show All Mortgages", ShowAllMortgages },
                 { "Create a Mortgage", CreateAMortgage },
                 { "Load Mortgages From File", LoadMortgagesFromFile },
@@ -43,7 +43,7 @@ namespace MyApp {
 
                 // run selected delegate if in dictionary, else throw exception
                 if (allOptionsToFunctions.ContainsKey(userSelection)) {
-                    allOptionsToFunctions[userSelection].DynamicInvoke();
+                    allOptionsToFunctions[userSelection].Invoke();
                 } else { AnsiConsole.WriteException(new Exception("whups sometin went wiwwy wong:persevering_face:")); }
 
                 // finished program, because Exit was chosen cleanup was already done
@@ -67,7 +67,7 @@ namespace MyApp {
 
                 if (userSelection.ToLower() == "back") { break; }
 
-                DisplayAMortgage(allMortgages.Where(x => x.Address == userSelection).Single());
+                DisplayAMortgage(allMortgages.Where(x => x.Address == userSelection).Take(1).Single());
 
             }
 
